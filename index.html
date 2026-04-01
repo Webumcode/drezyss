@@ -203,6 +203,14 @@
                 opacity: 1;
             }
         }
+        
+        /* Form validation styles */
+        .input-error {
+            border-color: #ef4444 !important;
+        }
+        .input-valid {
+            border-color: #10b981 !important;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -404,7 +412,7 @@
                 <div class="text-center max-w-2xl mx-auto">
                     <span class="text-indigo-400 text-sm font-semibold contact-badge">kontakt</span>
                     <h2 class="text-2xl md:text-4xl font-bold text-white mt-1 contact-title">Řekněte si o nezávaznou nabídku</h2>
-                    <p class="text-gray-400 mt-4 contact-desc">Odpovídám do 24 hodin. Popište svůj záměr, rád najdu řešení na míru.</p>
+                    <p class="text-gray-400 mt-4 contact-desc">Odpovídám do 24 hodin. Vyplňte prosím všechny údaje pro rychlejší komunikaci.</p>
                 </div>
                 <div class="grid md:grid-cols-2 gap-8 mt-10 md:mt-12">
                     <div class="space-y-6">
@@ -437,11 +445,58 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- KONTAKTNÍ FORMULÁŘ -->
                     <form id="contactForm" class="space-y-5">
-                        <div><label class="block text-sm font-medium text-gray-300 mb-1 form-name-label">Jak vás mám oslovit? *</label><input type="text" id="formName" required class="w-full border border-[#1e2a3e] rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition bg-[#0f172f] text-white" placeholder="Jméno nebo přezdívka"></div>
-                        <div><label class="block text-sm font-medium text-gray-300 mb-1 form-contact-label">Kontakt (e-mail / Discord) *</label><input type="text" id="formContact" required class="w-full border border-[#1e2a3e] rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition bg-[#0f172f] text-white" placeholder="@nick nebo e-mail"></div>
-                        <div><label class="block text-sm font-medium text-gray-300 mb-1 form-project-label">Stručný popis projektu</label><textarea id="formProject" rows="3" class="w-full border border-[#1e2a3e] rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition bg-[#0f172f] text-white resize-none" placeholder="Minecraft server, Discord bot, web..."></textarea></div>
-                        <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white font-medium py-3.5 rounded-xl transition flex items-center justify-center gap-2 shadow-lg btn-soft form-submit"><span>Odeslat poptávku</span><i data-lucide="send" class="w-4 h-4"></i></button>
+                        <!-- Reálné jméno -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1 form-realname-label">Reálné jméno *</label>
+                            <input type="text" id="formRealName" required 
+                                class="w-full border border-[#1e2a3e] rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition bg-[#0f172f] text-white" 
+                                placeholder="Jan Novák">
+                        </div>
+                        
+                        <!-- Discord uživatelské jméno -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1 form-discord-user-label">Discord uživatelské jméno *</label>
+                            <input type="text" id="formDiscordUser" required 
+                                class="w-full border border-[#1e2a3e] rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition bg-[#0f172f] text-white" 
+                                placeholder="@jannovak nebo jannovak#1234">
+                        </div>
+                        
+                        <!-- Email -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1 form-email-label">Email *</label>
+                            <input type="email" id="formEmail" required 
+                                class="w-full border border-[#1e2a3e] rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition bg-[#0f172f] text-white" 
+                                placeholder="jan.novak@email.cz">
+                        </div>
+                        
+                        <!-- Discord server pro kontakt -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1 form-discord-server-label">Discord server pro kontakt</label>
+                            <input type="text" id="formDiscordServer" 
+                                class="w-full border border-[#1e2a3e] rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition bg-[#0f172f] text-white" 
+                                placeholder="discord.gg/vas-server nebo pozvánka">
+                        </div>
+                        
+                        <!-- Popis projektu - minimálně 80 znaků -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1 form-project-label">Podrobný popis projektu * <span class="text-xs text-gray-500">(min. 80 znaků)</span></label>
+                            <textarea id="formProject" rows="5" required minlength="80"
+                                class="w-full border border-[#1e2a3e] rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition bg-[#0f172f] text-white resize-none" 
+                                placeholder="Popište prosím svůj projekt detailněji — o co se jedná, jaké máte požadavky, časový harmonogram, rozpočet, reference... Minimálně 80 znaků."></textarea>
+                            <div class="flex justify-between mt-1">
+                                <span class="text-xs text-gray-500 form-project-hint">Čím více detailů, tím lépe vám mohu pomoci</span>
+                                <span id="charCount" class="text-xs text-gray-500">0 / 80+</span>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" id="submitBtn" 
+                            class="w-full bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white font-medium py-3.5 rounded-xl transition flex items-center justify-center gap-2 shadow-lg btn-soft form-submit">
+                            <span>Odeslat poptávku</span>
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                        </button>
                     </form>
                 </div>
             </div>
@@ -478,83 +533,10 @@
     <script>
         lucide.createIcons();
         
-        // ==================== DISCORD WEBHOCH KONFIGURACE ====================
-        // ⚠️ DŮLEŽITÉ: Nahraďte tuto URL svým vlastním Discord webhookem!
-        // Jak vytvořit webhook:
-        // 1. Otevřete Discord server
-        // 2. Přejděte do Nastavení serveru > Integrace > Webhooky
-        // 3. Klikněte na "Vytvořit webhook"
-        // 4. Vyberte místnost (kanál) kam chcete zprávy posílat
-        // 5. Zkopírujte Webhook URL a vložte ji níže
-        
+        // ==================== DISCORD WEBHOOK KONFIGURACE ====================
         const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1486335537794125964/MKps3PiNmYHT3jxo494Alh3DhRQeXj2-WXLBW9qrnCl8riuTJibKMuaNJPNy3ufB0Wwl";
         
         // ====================================================================
-        
-        // Function to send message to Discord
-        async function sendToDiscord(name, contact, project) {
-            const currentLang = localStorage.getItem('language') || 'cs';
-            const langName = currentLang === 'cs' ? 'Čeština' : 'English';
-            
-            const embed = {
-                title: currentLang === 'cs' ? "📬 Nová poptávka z webu" : "📬 New inquiry from website",
-                color: 0x6366f1,
-                timestamp: new Date().toISOString(),
-                fields: [
-                    {
-                        name: currentLang === 'cs' ? "👤 Jméno / Přezdívka" : "👤 Name / Nickname",
-                        value: name || (currentLang === 'cs' ? "Nezadáno" : "Not provided"),
-                        inline: true
-                    },
-                    {
-                        name: currentLang === 'cs' ? "📞 Kontakt" : "📞 Contact",
-                        value: contact || (currentLang === 'cs' ? "Nezadáno" : "Not provided"),
-                        inline: true
-                    },
-                    {
-                        name: currentLang === 'cs' ? "🌐 Jazyk stránky" : "🌐 Page language",
-                        value: langName,
-                        inline: true
-                    },
-                    {
-                        name: currentLang === 'cs' ? "📝 Popis projektu" : "📝 Project description",
-                        value: project && project.trim() !== "" ? project : (currentLang === 'cs' ? "Nezadáno" : "Not provided"),
-                        inline: false
-                    }
-                ],
-                footer: {
-                    text: "Drezyss Developer - Kontaktní formulář",
-                    icon_url: "https://cdn.discordapp.com/embed/avatars/0.png"
-                }
-            };
-            
-            const payload = {
-                username: "Drezyss Web Form",
-                avatar_url: "https://cdn.discordapp.com/embed/avatars/0.png",
-                embeds: [embed]
-            };
-            
-            try {
-                const response = await fetch(DISCORD_WEBHOOK_URL, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(payload)
-                });
-                
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    console.error("Discord webhook error:", response.status, errorText);
-                    throw new Error(`HTTP ${response.status}`);
-                }
-                
-                return { success: true };
-            } catch (error) {
-                console.error("Failed to send to Discord:", error);
-                return { success: false, error: error.message };
-            }
-        }
         
         // Function to show toast notification
         function showToast(message, isError = false) {
@@ -586,49 +568,174 @@
             }, 5000);
         }
         
+        // Upravená funkce pro odeslání na Discord
+        async function sendToDiscord(realName, discordUser, email, discordServer, project) {
+            const currentLang = localStorage.getItem('language') || 'cs';
+            const langName = currentLang === 'cs' ? 'Čeština' : 'English';
+            const t = translations[currentLang];
+            
+            const embed = {
+                title: currentLang === 'cs' ? "📬 Nová poptávka z webu" : "📬 New inquiry from website",
+                color: 0x6366f1,
+                timestamp: new Date().toISOString(),
+                fields: [
+                    {
+                        name: currentLang === 'cs' ? "👤 Reálné jméno" : "👤 Real Name",
+                        value: realName || (currentLang === 'cs' ? "Nezadáno" : "Not provided"),
+                        inline: true
+                    },
+                    {
+                        name: currentLang === 'cs' ? "💬 Discord uživatel" : "💬 Discord User",
+                        value: discordUser || (currentLang === 'cs' ? "Nezadáno" : "Not provided"),
+                        inline: true
+                    },
+                    {
+                        name: currentLang === 'cs' ? "📧 Email" : "📧 Email",
+                        value: email || (currentLang === 'cs' ? "Nezadáno" : "Not provided"),
+                        inline: true
+                    },
+                    {
+                        name: currentLang === 'cs' ? "🌐 Discord server" : "🌐 Discord Server",
+                        value: discordServer && discordServer.trim() !== "" 
+                            ? discordServer 
+                            : (currentLang === 'cs' ? "Nezadáno" : "Not provided"),
+                        inline: true
+                    },
+                    {
+                        name: currentLang === 'cs' ? "🌐 Jazyk stránky" : "🌐 Page language",
+                        value: langName,
+                        inline: true
+                    },
+                    {
+                        name: currentLang === 'cs' ? "📝 Popis projektu" : "📝 Project description",
+                        value: project && project.trim() !== "" 
+                            ? project.substring(0, 1024) 
+                            : (currentLang === 'cs' ? "Nezadáno" : "Not provided"),
+                        inline: false
+                    }
+                ],
+                footer: {
+                    text: `Drezyss Developer - ${currentLang === 'cs' ? 'Kontaktní formulář' : 'Contact form'} | ${project.length} ${currentLang === 'cs' ? 'znaků' : 'chars'}`,
+                    icon_url: "https://cdn.discordapp.com/embed/avatars/0.png"
+                }
+            };
+            
+            // Pokud je popis delší než 1024 znaků, přidáme druhé pole
+            if (project.length > 1024) {
+                embed.fields.push({
+                    name: currentLang === 'cs' ? "📝 Popis projektu (pokračování)" : "📝 Project description (continued)",
+                    value: project.substring(1024, 2048),
+                    inline: false
+                });
+            }
+            
+            const payload = {
+                username: "Drezyss Web Form",
+                avatar_url: "https://cdn.discordapp.com/embed/avatars/0.png",
+                embeds: [embed]
+            };
+            
+            try {
+                const response = await fetch(DISCORD_WEBHOOK_URL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error("Discord webhook error:", response.status, errorText);
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                
+                return { success: true };
+            } catch (error) {
+                console.error("Failed to send to Discord:", error);
+                return { success: false, error: error.message };
+            }
+        }
+        
         // Form submission handler
         const contactForm = document.getElementById('contactForm');
         const submitBtn = document.getElementById('submitBtn');
-        
+        const formProject = document.getElementById('formProject');
+        const charCount = document.getElementById('charCount');
+
+        // Počítadlo znaků pro popis projektu
+        formProject.addEventListener('input', () => {
+            const length = formProject.value.length;
+            const currentLang = localStorage.getItem('language') || 'cs';
+            charCount.textContent = `${length} / 80+`;
+            if (length >= 80) {
+                charCount.classList.remove('text-gray-500', 'text-red-400');
+                charCount.classList.add('text-emerald-400');
+                formProject.classList.remove('input-error');
+                formProject.classList.add('input-valid');
+            } else {
+                charCount.classList.remove('text-emerald-400', 'text-gray-500');
+                charCount.classList.add('text-red-400');
+                formProject.classList.remove('input-valid');
+                formProject.classList.add('input-error');
+            }
+        });
+
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            const name = document.getElementById('formName').value.trim();
-            const contact = document.getElementById('formContact').value.trim();
+            const realName = document.getElementById('formRealName').value.trim();
+            const discordUser = document.getElementById('formDiscordUser').value.trim();
+            const email = document.getElementById('formEmail').value.trim();
+            const discordServer = document.getElementById('formDiscordServer').value.trim();
             const project = document.getElementById('formProject').value.trim();
             
-            // Simple validation
-            if (!name || !contact) {
-                const currentLang = localStorage.getItem('language') || 'cs';
-                const errorMsg = currentLang === 'cs' ? "Prosím vyplňte jméno a kontakt" : "Please fill in name and contact";
+            const t = translations[currentLang];
+            
+            // Validace
+            if (!realName || !discordUser || !email) {
+                showToast(t.validationRequired, true);
+                return;
+            }
+            
+            // Validace minimální délky popisu
+            if (project.length < 80) {
+                const errorMsg = t.validationProjectLength.replace('{current}', project.length);
                 showToast(errorMsg, true);
                 return;
             }
             
-            // Disable button and show loading state
+            // Validace emailu
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showToast(t.validationEmail, true);
+                return;
+            }
+            
+            // Disable button a loading stav
             submitBtn.disabled = true;
             const originalBtnText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i><span>Odesílání...</span>';
+            submitBtn.innerHTML = `<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i><span>${t.sending}</span>`;
             lucide.createIcons();
             
-            // Send to Discord
-            const result = await sendToDiscord(name, contact, project);
+            // Odeslání na Discord
+            const result = await sendToDiscord(realName, discordUser, email, discordServer, project);
             
             if (result.success) {
-                const currentLang = localStorage.getItem('language') || 'cs';
-                const successMsg = currentLang === 'cs' ? "✅ Děkuji za zprávu! Ozvu se vám co nejdříve. Těším se na spolupráci." : "✅ Thank you for your message! I'll get back to you soon.";
-                showToast(successMsg, false);
+                showToast(t.toastSuccess, false);
                 
-                // Clear form
-                document.getElementById('formName').value = '';
-                document.getElementById('formContact').value = '';
+                // Vyčištění formuláře
+                document.getElementById('formRealName').value = '';
+                document.getElementById('formDiscordUser').value = '';
+                document.getElementById('formEmail').value = '';
+                document.getElementById('formDiscordServer').value = '';
                 document.getElementById('formProject').value = '';
+                charCount.textContent = '0 / 80+';
+                charCount.classList.remove('text-emerald-400');
+                charCount.classList.add('text-gray-500');
+                formProject.classList.remove('input-valid', 'input-error');
             } else {
-                const currentLang = localStorage.getItem('language') || 'cs';
-                const errorMsg = currentLang === 'cs' 
-                    ? "❌ Nepodařilo se odeslat zprávu. Zkuste to prosím později nebo mě kontaktujte přímo na Discordu." 
-                    : "❌ Failed to send message. Please try again later or contact me directly on Discord.";
-                showToast(errorMsg, true);
+                showToast(t.toastError, true);
             }
             
             // Re-enable button
@@ -676,16 +783,34 @@
                 aboutPoint3: "Bezpečnost na prvním místě — ochrana proti zneužití a exploitům.",
                 contactBadge: "kontakt",
                 contactTitle: "Řekněte si o nezávaznou nabídku",
-                contactDesc: "Odpovídám do 24 hodin. Popište svůj záměr, rád najdu řešení na míru.",
+                contactDesc: "Odpovídám do 24 hodin. Vyplňte prosím všechny údaje pro rychlejší komunikaci.",
                 contactEmail: "E-mail",
                 contactDiscord: "Discord",
                 contactDiscordNote: "nejrychlejší spojení",
                 contactResponse: "Reakční doba",
                 contactResponseText: "Do 1 hodiny",
-                formName: "Jak vás mám oslovit? *",
-                formContact: "Kontakt (e-mail / Discord) *",
-                formProject: "Stručný popis projektu",
+                // PŘEKLADY PRO FORMULÁŘ
+                formRealName: "Reálné jméno *",
+                formDiscordUser: "Discord uživatelské jméno *",
+                formEmail: "Email *",
+                formDiscordServer: "Discord server pro kontakt",
+                formProject: "Podrobný popis projektu *",
+                formProjectHint: "Čím více detailů, tím lépe vám mohu pomoci",
                 formSubmit: "Odeslat poptávku",
+                // PLACEHOLDERy
+                placeholderRealName: "Jan Novák",
+                placeholderDiscordUser: "@jannovak nebo jannovak#1234",
+                placeholderEmail: "jan.novak@email.cz",
+                placeholderDiscordServer: "discord.gg/vas-server nebo pozvánka",
+                placeholderProject: "Popište prosím svůj projekt detailněji — o co se jedná, jaké máte požadavky, časový harmonogram, rozpočet, reference... Minimálně 80 znaků.",
+                // VALIDACE
+                validationRequired: "Prosím vyplňte všechna povinná pole",
+                validationEmail: "Prosím zadejte platný email",
+                validationProjectLength: "Popis projektu je příliš krátký ({current}/80 znaků). Prosím popište projekt detailněji.",
+                // TOAST ZPRÁVY
+                toastSuccess: "✅ Děkuji za zprávu! Ozvu se vám co nejdříve. Těším se na spolupráci.",
+                toastError: "❌ Nepodařilo se odeslat zprávu. Zkuste to prosím později nebo mě kontaktujte přímo na Discordu.",
+                sending: "Odesílání...",
                 footerTagline: "• herní vývoj na míru"
             },
             en: {
@@ -726,16 +851,34 @@
                 aboutPoint3: "Security first — protection against abuse and exploits.",
                 contactBadge: "contact",
                 contactTitle: "Request a non-binding quote",
-                contactDesc: "I respond within 24 hours. Describe your project, I'll find a custom solution.",
+                contactDesc: "I respond within 24 hours. Please fill in all details for faster communication.",
                 contactEmail: "Email",
                 contactDiscord: "Discord",
                 contactDiscordNote: "fastest connection",
                 contactResponse: "Response time",
                 contactResponseText: "Within 1 hour",
-                formName: "How should I address you? *",
-                formContact: "Contact (email / Discord) *",
-                formProject: "Brief project description",
+                // PŘEKLADY PRO FORMULÁŘ
+                formRealName: "Real Name *",
+                formDiscordUser: "Discord Username *",
+                formEmail: "Email *",
+                formDiscordServer: "Discord Server for Contact",
+                formProject: "Detailed Project Description *",
+                formProjectHint: "The more details, the better I can help you",
                 formSubmit: "Send Request",
+                // PLACEHOLDERy
+                placeholderRealName: "John Doe",
+                placeholderDiscordUser: "@johndoe or johndoe#1234",
+                placeholderEmail: "john.doe@email.com",
+                placeholderDiscordServer: "discord.gg/your-server or invite link",
+                placeholderProject: "Please describe your project in detail — what it is about, your requirements, timeline, budget, references... Minimum 80 characters.",
+                // VALIDACE
+                validationRequired: "Please fill in all required fields",
+                validationEmail: "Please enter a valid email",
+                validationProjectLength: "Project description too short ({current}/80 chars). Please provide more details.",
+                // TOAST ZPRÁVY
+                toastSuccess: "✅ Thank you for your message! I'll get back to you soon.",
+                toastError: "❌ Failed to send message. Please try again later or contact me directly on Discord.",
+                sending: "Sending...",
                 footerTagline: "• custom game development"
             }
         };
@@ -787,10 +930,23 @@
             document.querySelector('.contact-discord-note').textContent = t.contactDiscordNote;
             document.querySelector('.contact-response-label').textContent = t.contactResponse;
             document.querySelector('.contact-response-text').textContent = t.contactResponseText;
-            document.querySelector('.form-name-label').textContent = t.formName;
-            document.querySelector('.form-contact-label').textContent = t.formContact;
-            document.querySelector('.form-project-label').textContent = t.formProject;
+            
+            // PŘEKLADY PRO FORMULÁŘ - LABELY
+            document.querySelector('.form-realname-label').textContent = t.formRealName;
+            document.querySelector('.form-discord-user-label').textContent = t.formDiscordUser;
+            document.querySelector('.form-email-label').textContent = t.formEmail;
+            document.querySelector('.form-discord-server-label').textContent = t.formDiscordServer;
+            document.querySelector('.form-project-label').innerHTML = `${t.formProject} <span class="text-xs text-gray-500">(min. 80 ${lang === 'cs' ? 'znaků' : 'chars'})</span>`;
+            document.querySelector('.form-project-hint').textContent = t.formProjectHint;
             document.querySelector('.form-submit span').textContent = t.formSubmit;
+            
+            // PŘEKLADY PRO FORMULÁŘ - PLACEHOLDERy
+            document.getElementById('formRealName').placeholder = t.placeholderRealName;
+            document.getElementById('formDiscordUser').placeholder = t.placeholderDiscordUser;
+            document.getElementById('formEmail').placeholder = t.placeholderEmail;
+            document.getElementById('formDiscordServer').placeholder = t.placeholderDiscordServer;
+            document.getElementById('formProject').placeholder = t.placeholderProject;
+            
             document.querySelector('.footer-tagline').textContent = t.footerTagline;
             document.getElementById('currentLang').textContent = lang === 'cs' ? 'ČEŠTINA' : 'ENGLISH';
         }
